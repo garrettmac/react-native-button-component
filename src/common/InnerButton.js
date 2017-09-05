@@ -66,6 +66,7 @@ const propTypes = {
   progressFill: PropTypes.number,
   progressText: PropTypes.string,
   textInsideProgress: PropTypes.bool,
+  numberOfLines:PropTypes.number,
   progress: PropTypes.bool,
   spinnerAnim: PropTypes.object,
   spinner: PropTypes.bool,
@@ -82,7 +83,7 @@ const defaultProps = {
   progressWidth: 3,
   progressTintColor: '#00e0ff',
   progressBackgroundColor: '#3d5875',
-
+  numberOfLines:undefined,
   spinnerSize: 25,
   spinnerType: 'Wave',
   spinnerColor: '#ffffff',
@@ -111,7 +112,8 @@ class InnerButton extends Component {
 
     if ((this.props.text && !this.props.progress) || !this.props.textInsideProgress) {
       text = (
-        <Animated.Text style={[styles.text, this.props.textStyle, this.props.textAnim]}>
+        <Animated.Text numberOfLines={this.props.numberOfLines}
+         style={[styles.text, this.props.textStyle, this.props.textAnim]}>
           {this.props.text}
         </Animated.Text>
       );
@@ -125,6 +127,7 @@ class InnerButton extends Component {
         progressContent = [
           this.props.progressText && (
             <Animated.Text
+            numberOfLines={this.props.numberOfLines}
               key="progressText"
               style={[styles.text, this.props.textStyle, this.props.textAnim]}
             >
@@ -133,6 +136,7 @@ class InnerButton extends Component {
           ),
           this.props.text && (
             <Animated.Text
+            numberOfLines={this.props.numberOfLines}
               key="text"
               style={[styles.text, this.props.textStyle, this.props.textAnim]}
             >
