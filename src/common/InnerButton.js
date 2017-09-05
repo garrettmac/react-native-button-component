@@ -111,44 +111,77 @@ class InnerButton extends Component {
       );
     }
 
-    if ((this.props.text && !this.props.progress) || !this.props.textInsideProgress) {
-      text = (<Animated.View key="textView" {...this.props.extras}>
-              {React.cloneElement(child, {
-                key:"text",
-                style: [
-                this.props.cloneText?styles.text:null,
-                this.props.cloneTextStyle?this.props.textStyle:null,
-                this.props.cloneTextAnim?this.props.textAnim:null,
-              ]})}
-            </Animated.View>);
-    }
+                  if ((this.props.text && !this.props.progress) || !this.props.textInsideProgress) {
+                    if(this.props.customTextComponent){
+                      text = (<Animated.View  {...this.props.extras}>
+                              {React.cloneElement(this.props.customTextComponent, {
+                                style: [
+                                this.props.cloneText?styles.text:null,
+                                this.props.cloneTextStyle?this.props.textStyle:null,
+                                this.props.cloneTextAnim?this.props.textAnim:null,
+                              ]})}
+                            </Animated.View>);
+                    }else{
+                      text = (
+                        <Animated.Text style={[styles.text, this.props.textStyle, this.props.textAnim]}>
+                          {this.props.text}
+                        </Animated.Text>
+                      );
+                    }  
+                    }
     
 
     if (this.props.progress) {
       contentStyle = styles.progressContent;
       let progressContent;
 
-      if (this.props.textInsideProgress) {
-        progressContent = [
-          this.props.progressText && (
-            <Animated.Text
-              key="progressText"
-              style={[styles.text, this.props.textStyle, this.props.textAnim]}
-            >
-              {this.props.progressText}
-            </Animated.Text>
-          ),
-        (<Animated.View key="textView" {...this.props.extras}>
-              {React.cloneElement(child, {
-                key:"text",
-                style: [
-                this.props.cloneText?styles.text:null,
-                this.props.cloneTextStyle?this.props.textStyle:null,
-                this.props.cloneTextAnim?this.props.textAnim:null,
-              ]})}
-            </Animated.View>)
-        ];
-      }
+  if (this.props.textInsideProgress) {
+    if(this.props.customTextComponent){
+      progressContent = [
+        this.props.progressText && (
+          <Animated.Text
+            key="progressText"
+            style={[styles.text, this.props.textStyle, this.props.textAnim]}
+          >
+            {this.props.progressText}
+          </Animated.Text>
+        ),
+        this.props.text && (<Animated.View   key="text" {...this.props.extras}>
+          {React.cloneElement(this.props.customTextComponent, {
+          
+            style: [
+            this.props.cloneText?styles.text:null,
+            this.props.cloneTextStyle?this.props.textStyle:null,
+            this.props.cloneTextAnim?this.props.textAnim:null,
+          ]})}
+        </Animated.View>),
+      ];
+    }else{
+    
+    
+    progressContent = [
+      this.props.progressText && (
+        <Animated.Text
+          key="progressText"
+          style={[styles.text, this.props.textStyle, this.props.textAnim]}
+        >
+          {this.props.progressText}
+        </Animated.Text>
+      ),
+      this.props.text && (
+        <Animated.Text
+          key="text"
+          style={[styles.text, this.props.textStyle, this.props.textAnim]}
+        >
+          {this.props.text}
+        </Animated.Text>
+      ),
+    ];
+  }//esle
+
+}
+
+      
 
       const progressAnim = this.props.textInsideProgress
         ? this.props.progressAnim
