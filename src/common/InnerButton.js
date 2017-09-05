@@ -112,7 +112,7 @@ class InnerButton extends Component {
 
     if ((this.props.text && !this.props.progress) || !this.props.textInsideProgress) {
       text = (
-        <Animated.Text numberOfLines={this.props.numberOfLines}
+        <Animated.Text {...this.props.extras}
          style={[styles.text, this.props.textStyle, this.props.textAnim]}>
           {this.props.text}
         </Animated.Text>
@@ -127,22 +127,14 @@ class InnerButton extends Component {
         progressContent = [
           this.props.progressText && (
             <Animated.Text
-            numberOfLines={this.props.numberOfLines}
+
               key="progressText"
               style={[styles.text, this.props.textStyle, this.props.textAnim]}
             >
               {this.props.progressText}
             </Animated.Text>
           ),
-          this.props.text && (
-            <Animated.Text
-            numberOfLines={this.props.numberOfLines}
-              key="text"
-              style={[styles.text, this.props.textStyle, this.props.textAnim]}
-            >
-              {this.props.text}
-            </Animated.Text>
-          ),
+          this.props.text
         ];
       }
 
