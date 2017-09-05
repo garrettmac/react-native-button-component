@@ -1,3 +1,4 @@
+//pre
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, Animated, StyleSheet, Image } from 'react-native';
@@ -111,11 +112,15 @@ class InnerButton extends Component {
     }
 
     if ((this.props.text && !this.props.progress) || !this.props.textInsideProgress) {
-      text = (
-        <Animated.View {...this.props.extras}>
-          {this.props.text}
-        </Animated.View>
-      );
+      text = (<Animated.View key="textView" {...this.props.extras}>
+              {React.cloneElement(child, {
+                key:"text",
+                style: [
+                this.props.cloneText?styles.text:null,
+                this.props.cloneTextStyle?this.props.textStyle:null,
+                this.props.cloneTextAnim?this.props.textAnim:null,
+              ]})}
+            </Animated.View>);
     }
     
 
@@ -133,9 +138,15 @@ class InnerButton extends Component {
               {this.props.progressText}
             </Animated.Text>
           ),
-        (<Animated.View {...this.props.extras}>
-          {this.props.text}
-        </Animated.View>)
+        (<Animated.View key="textView" {...this.props.extras}>
+              {React.cloneElement(child, {
+                key:"text",
+                style: [
+                this.props.cloneText?styles.text:null,
+                this.props.cloneTextStyle?this.props.textStyle:null,
+                this.props.cloneTextAnim?this.props.textAnim:null,
+              ]})}
+            </Animated.View>)
         ];
       }
 
