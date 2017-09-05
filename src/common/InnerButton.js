@@ -76,7 +76,7 @@ const propTypes = {
   spinnerStyle: PropTypes.oneOfType([PropTypes.number, PropTypes.object, PropTypes.array]),
   spinnerColor: PropTypes.string,
   image: PropTypes.any,
-  text: PropTypes.string,
+//  text: PropTypes.string,
 };
 
 const defaultProps = {
